@@ -139,112 +139,6 @@ def tab2():
       
             st.plotly_chart(fig)
            
-
-def tab3():
-     st.title("Statistics")
-     st.write(ticker)
-     c1, c2 = st.columns(2)
-     
-     with c1:
-         st.header("Valuation Measures")
-         def getvaluation(ticker):
-                 return si.get_stats_valuation(ticker)
-    
-         if ticker != '-':
-                valuation = getvaluation(ticker)
-                valuation[1] = valuation[1].astype(str)
-                valuation = valuation.rename(columns = {0: 'Attribute', 1: ''})
-                valuation.set_index('Attribute', inplace=True)
-                st.table(valuation)
-                
-        
-         st.header("Financial Highlights")
-         st.subheader("Fiscal Year")
-         
-         def getstats(ticker):
-                 return si.get_stats(ticker)
-         
-         if ticker != '-':
-                stats = getstats(ticker)
-                stats['Value'] = stats['Value'].astype(str)
-                stats.set_index('Attribute', inplace=True)
-                st.table(stats.iloc[29:31,])
-                
-        
-         st.subheader("Profitability")
-         
-         if ticker != '-':
-                stats = getstats(ticker)
-                stats['Value'] = stats['Value'].astype(str)
-                stats.set_index('Attribute', inplace=True)
-                st.table(stats.iloc[31:33,])
-                    
-                
-         st.subheader("Management Effectiveness")
-         
-         if ticker != '-':
-                stats = getstats(ticker)
-                stats['Value'] = stats['Value'].astype(str)
-                stats.set_index('Attribute', inplace=True)
-                st.table(stats.iloc[33:35,])
-         
-         
-                
-         st.subheader("Income Statement")
-         
-         if ticker != '-':
-                stats = getstats(ticker)
-                stats['Value'] = stats['Value'].astype(str)
-                stats.set_index('Attribute', inplace=True)
-                st.table(stats.iloc[35:43,])  
-            
-         
-         st.subheader("Balance Sheet")
-         
-         if ticker != '-':
-                stats = getstats(ticker)
-                stats['Value'] = stats['Value'].astype(str)
-                stats.set_index('Attribute', inplace=True)
-                st.table(stats.iloc[43:49,])
-         
-         st.subheader("Cash Flow Statement")
-         
-         if ticker != '-':
-                stats = getstats(ticker)
-                stats['Value'] = stats['Value'].astype(str)
-                stats.set_index('Attribute', inplace=True)
-                st.table(stats.iloc[49:,])
-         
-                      
-     with c2:
-         st.header("Trading Information")
-         
-         
-         st.subheader("Stock Price History")
-                  
-         if ticker != '-':
-                stats = getstats(ticker)
-                stats['Value'] = stats['Value'].astype(str)
-                stats.set_index('Attribute', inplace=True)
-                st.table(stats.iloc[:7,])
-         
-         st.subheader("Share Statistics")
-                  
-         if ticker != '-':
-                stats = getstats(ticker)
-                stats['Value'] = stats['Value'].astype(str)
-                stats.set_index('Attribute', inplace=True)
-                st.table(stats.iloc[7:19,])
-         
-         st.subheader("Dividends & Splits")
-                  
-         if ticker != '-':
-                stats = getstats(ticker)
-                stats['Value'] = stats['Value'].astype(str)
-                stats.set_index('Attribute', inplace=True)
-                st.table(stats.iloc[19:29,])
-         
-  
 def run():
 
     ticker_list = ['-'] + si.tickers_sp500()
@@ -252,14 +146,12 @@ def run():
     global ticker
     ticker = st.sidebar.selectbox("Select a ticker", ticker_list)
     
-    select_tab = st.sidebar.radio("Select tab", ['Summary', 'Chart', 'Statistics'])
+    select_tab = st.sidebar.radio("Select tab", ['Summary', 'Chart'])
 
     if select_tab == 'Summary':
         tab1()
     elif select_tab == 'Chart':
         tab2()
-    elif select_tab == 'Statistics':
-        tab3()
     
 if __name__ == "__main__":
     run()    
